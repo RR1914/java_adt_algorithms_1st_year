@@ -128,7 +128,8 @@ private TreeNode<K, V> deleteNode(TreeNode<K, V> node) {
   }
 }
 
-private TreeNode<K, V> findLeftMost(TreeNode<K, V> node) {
+// Deletes the left most node in a tree
+private TreeNode<K, V> deleteLeftMost(TreeNode<K, V> node) {
   if (node == null) throw new TreeException();
   if (node.getLeft() == null) {
     return node.getRight();
@@ -136,4 +137,13 @@ private TreeNode<K, V> findLeftMost(TreeNode<K, V> node) {
     node.setLeft(deleteLeftMost(node.getLeft()));
     return rebalance(node);
   }
+}
+
+// Finds the left most node in a tree
+private TreeNode<K, V> findLeftMost(TreeNode<K, V> node) {
+  if (node == null) throw new TreeException();
+  while (node.getLeft() != null) {
+    node = node.getLeft();
+  }
+  return node;
 }
