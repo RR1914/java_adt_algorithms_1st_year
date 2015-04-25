@@ -1,13 +1,11 @@
 package heaps;
 
-// Minheap : smallest element at ROOT_VALUE
-// Maxheap : largest element at ROOT_VALUE
+// Minheap : smallest element at ROOT
+// Maxheap : largest element at ROOT
 
 public interface Heap<T extends Comparable<T>> {
 
   void insert(T elem) throws HeapException;
-
-  void delete(T elem);
 
   T getNext();
 
@@ -15,6 +13,6 @@ public interface Heap<T extends Comparable<T>> {
 
   boolean isEmpty();
 
-  void heapRebuild();
+  void heapRebuild(int pos);
 
 }

@@ -1,15 +1,17 @@
 package heaps;
 
+import java.util.ArrayList;
+
 public abstract class AbstractHeap<T extends Comparable<T>> implements Heap<T> {
 
-  protected static final int ROOT_VALUE = 0;
-  private static final int DEFAULT_CAPACITY = 50;
+  protected static final int ROOT = 0;
+  private static final int DEFAULT_CAPACITY = 10000;
 
-  protected T[] heap;
+  protected ArrayList<T> heap;
   protected int lastIndex;
 
   public AbstractHeap() {
-    heap = (T[]) new Comparable[DEFAULT_CAPACITY];
+    heap = new ArrayList<T>(DEFAULT_CAPACITY);
     lastIndex = 0;
   }
 
