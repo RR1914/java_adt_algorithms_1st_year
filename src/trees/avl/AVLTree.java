@@ -171,4 +171,36 @@ public class AVLTree<K extends Comparable<K>, V> implements Tree<K, V> {
       System.out.println("Couldn't delete element with key: " + key);
     }
   }
+
+  @Override
+  public V retrieve(K key) throws TreeException {
+    AVLTreeNode<K, V> node = root;
+    while (node != null) {
+      K nodekey = node.getKey();
+      if (key == nodekey) {
+        return node.getValue();
+      } else if (key.compareTo(nodekey) > 1) {
+        node = node.getRight();
+      } else {
+        node = node.getLeft();
+      }
+    }
+    throw new TreeException();
+  }
+
+  @Override
+  public boolean contains(K key) {
+    AVLTreeNode<K, V> node = root;
+    while (node != null) {
+      K nodekey = node.getKey();
+      if (key == nodekey) {
+        return true;
+      } else if (key.compareTo(nodekey) > 1) {
+        node = node.getRight();
+      } else {
+        node = node.getLeft();
+      }
+    }
+    return false;
+  }
 }

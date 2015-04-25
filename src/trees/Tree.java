@@ -6,4 +6,8 @@ public interface Tree<K extends Comparable<K>, V> {
 
   void delete(K key);
 
+  V retrieve(K key) throws TreeException;
+
+  boolean contains(K key);
+
 }
