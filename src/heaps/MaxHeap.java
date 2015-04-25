@@ -1,13 +1,22 @@
 package heaps;
 
+import java.util.ArrayList;
+
 public class MaxHeap<T extends Comparable<T>> extends AbstractHeap<T> {
+
+  public MaxHeap() {
+    super();
+  }
+
   @Override
   public void insert(T elem) throws HeapException {
-    heap.set(lastIndex, elem);
+    heap[lastIndex] = elem;
     int index = lastIndex;
-    while (heap.get(ROOT) != elem) {
-      int parent = (int) Math.ceil(index / 2) - 1;
-      if (heap.get(parent).compareTo(heap.get(index)) < 1) {
+    lastIndex++;
+    while (heap[ROOT] != elem) {
+      double pos = index + EPSILON;
+      int parent = (int) Math.floor(pos / 2);
+      if (heap[parent].compareTo(heap[index]) < 1) {
         swap(parent, index);
         index = parent;
       } else {
@@ -17,15 +26,15 @@ public class MaxHeap<T extends Comparable<T>> extends AbstractHeap<T> {
   }
 
   private void swap(int index_1, int index_2) {
-    T temp = heap.get(index_1);
-    heap.set(index_1, heap.get(index_2));
-    heap.set(index_2, temp);
+    T temp = heap[index_1];
+    heap[index_1] = heap[index_2];
+    heap[index_2] = temp;
   }
 
   @Override
   public T getNext() {
     if (!isEmpty()) {
-      T out = heap.get(0);
+      T out = heap[0];
       removeNext();
       return out;
     }
@@ -35,12 +44,12 @@ public class MaxHeap<T extends Comparable<T>> extends AbstractHeap<T> {
   @Override
   public void removeNext() {
     // Heap is likely semi-heap after next call
-    if (!isEmpty()) heap.set(ROOT, heap.get(lastIndex - 1));
+    if (!isEmpty()) heap[ROOT] = heap[lastIndex - 1];
     lastIndex--;
 
     // If condition -> semi-heap
-    if (heap.get(ROOT).compareTo(heap.get(ROOT + 1)) < 1
-      || heap.get(ROOT).compareTo(heap.get(ROOT + 2)) < 1) {
+    if (heap[ROOT].compareTo(heap[ROOT + 1]) < 1
+      || heap[ROOT].compareTo(heap[ROOT + 2]) < 1) {
       heapRebuild(ROOT);
     }
   }
@@ -49,13 +58,19 @@ public class MaxHeap<T extends Comparable<T>> extends AbstractHeap<T> {
   public void heapRebuild(int pos) {
     // Position has at least a left child
     int child = (2 * pos) + 1;
-    if (heap.get(child) != null) {
-      if (heap.get(child + 1) != null && heap.get(child).compareTo
-        (heap.get(child + 1)) <= 1) child++;
-      if (heap.get(pos).compareTo(heap.get(child)) < 1) {
+    if (heap[child] != null) {
+      if (heap[child + 1] != null && heap[child].compareTo
+        (heap[child + 1]) <= 1) child++;
+      if (heap[pos].compareTo(heap[child]) < 1) {
         swap(pos, child);
         heapRebuild(child);
       }
     }
+  }
+
+  public T[] toArray() {
+    T[] array = (T[]) new Integer[lastIndex];
+    System.arraycopy(heap, 0, array, 0, lastIndex);
+    return array;
   }
 }
