@@ -130,8 +130,10 @@ private TreeNode<K, V> deleteNode(TreeNode<K, V> node) {
 
 private TreeNode<K, V> findLeftMost(TreeNode<K, V> node) {
   if (node == null) throw new TreeException();
-  while (node.getLeft() != null) {
-    node = node.getLeft();
+  if (node.getLeft() == null) {
+    return node.getRight();
+  } else {
+    node.setLeft(deleteLeftMost(node.getLeft()));
+    return rebalance(node);
   }
-  return node;
 }
