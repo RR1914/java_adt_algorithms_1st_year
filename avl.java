@@ -68,3 +68,23 @@ private int getHeight(TreeNode<K, V> node) {
 		1 + getHeight(node.getLeft()) + getHeight(node.getRight())
 		: 0;
 }
+
+// Inserts an element with a key and value.
+// Overwrites existing nodes with the same key. 
+// Rebalances node at each point insertElem is called. 
+public TreeNode<K, V> insertElem(TreeNode<K, V> node, K key, V value) {
+  if (node != null) {
+    K nodekey = node.getKey();
+    if (key == nodekey) {
+      node.setValue(value);
+    } else if (key < nodekey) {
+      TreeNode<K, V> newLeft = insertElem(node.getLeft(), key, value);
+      node.setLeft(rebalance(newLeft));
+    } else {
+      TreeNode<K, V> newRight = insertElem(node.getRight(), key, value);
+      node.setRight(rebalance(newRight));
+    }
+    return node;
+  }
+  return new TreeNode<K, V>(K key, V Value);
+}
