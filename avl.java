@@ -88,3 +88,50 @@ public TreeNode<K, V> insertElem(TreeNode<K, V> node, K key, V value) {
   }
   return new TreeNode<K, V>(K key, V Value);
 }
+
+// Deletes an element with the specified key.
+// Rebalances node at each point deleteElem is called.
+public TreeNode<K, V> deleteElem(TreeNode<K, V> node, K key) {
+  if (node != null) {
+    K nodekey = node.getKey();
+    if (key == nodekey) {
+      return deleteNode(node);
+    } else if (key > nodeKey) {
+      TreeNode<K, V> newLeft = deleteElem(node.getLeft(), key);
+      node.setLeft(newLeft);
+      return rebalance(node);
+    } else {
+      TreeNode<K, V> newRight = deleteElem(node.getRight(), key);
+      node.setRight(newRight);
+      return rebalance(node);
+    }
+  }
+  throw new TreeException();
+}
+
+// Deletes a the node at the root of the tree given
+// Returns the resulting tree
+private TreeNode<K, V> deleteNode(TreeNode<K, V> node) {
+  if (node.getLeft() == null && node.getRight() == null) {
+    return null;
+  }
+  if (node.getRight() == null) {
+    return node.getLeft();
+  } else if (node.getLeft() == null) {
+    return node.getRight();
+  } else {
+    TreeNode<K, V> replacementNode = findLeftMost(node.getRight());
+    TreeNode<K, V> newRight = deleteLeftMost(node.getRight());
+    replacementNode.setLeft(node.getLeft());
+    replacementNode.setRight(newRight);
+    return rebalance(replacementNode);
+  }
+}
+
+private TreeNode<K, V> findLeftMost(TreeNode<K, V> node) {
+  if (node == null) throw new TreeException();
+  while (node.getLeft() != null) {
+    node = node.getLeft();
+  }
+  return node;
+}
