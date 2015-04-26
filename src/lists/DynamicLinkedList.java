@@ -28,6 +28,27 @@ public class DynamicLinkedList<K> extends AbstractLinkedList<K> {
     }
   }
 
+  public void add(int n, K elem) throws IllegalArgumentException {
+    if (0 < n && n <= numelems) {
+      int count = 1;
+      LinkedListNode<K> current = head;
+      LinkedListNode<K> prev = null;
+      while (count < n) {
+        prev = current;
+        current = current.getNext();
+        count++;
+      }
+      if (prev != null) {
+        prev.setNext(new LinkedListNode<K>(elem, current));
+      } else {
+        head = new LinkedListNode<K>(elem, head);
+      }
+      numelems++;
+    } else {
+      throw new IllegalArgumentException("n must be < numelems, > 0");
+    }
+  }
+
   @Override
   public void delete(K elem) throws LinkedListException {
     LinkedListNode<K> current = head;
