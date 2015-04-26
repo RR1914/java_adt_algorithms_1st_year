@@ -8,7 +8,7 @@ public class AVLTree<K extends Comparable<K>, V> implements Tree<K, V> {
   private AVLTreeNode<K, V> root;
 
   // Rotates the left tree right, bringing the left child of the
-  // current node to the root of this tree section
+  // current node to the ROOT of this tree section
   public AVLTreeNode<K, V> rotateRight(AVLTreeNode<K, V> node) {
     AVLTreeNode<K, V> left = node.getLeft();
     node.setLeft(left.getRight());
@@ -17,7 +17,7 @@ public class AVLTree<K extends Comparable<K>, V> implements Tree<K, V> {
   }
 
   // Rotates the right tree left, bringing the right child of the
-  // current node to the root of this tree section
+  // current node to the ROOT of this tree section
   public AVLTreeNode<K, V> rotateLeft(AVLTreeNode<K, V> node) {
     AVLTreeNode<K, V> right = node.getRight();
     node.setRight(right.getLeft());
@@ -25,14 +25,14 @@ public class AVLTree<K extends Comparable<K>, V> implements Tree<K, V> {
     return right;
   }
 
-  // Rotates the left tree left before rotating the root right
+  // Rotates the left tree left before rotating the ROOT right
   public AVLTreeNode<K, V> rotateLeftRight(AVLTreeNode<K, V> node) {
     AVLTreeNode<K, V> newLeft = rotateLeft(node.getLeft());
     node.setLeft(newLeft);
     return rotateRight(node);
   }
 
-  // Rotates the right tree right before rotating the root left
+  // Rotates the right tree right before rotating the ROOT left
   public AVLTreeNode<K, V> rotateRightLeft(AVLTreeNode<K, V> node) {
     AVLTreeNode<K, V> newRight = rotateRight(node.getRight());
     node.setRight(newRight);
@@ -74,8 +74,12 @@ public class AVLTree<K extends Comparable<K>, V> implements Tree<K, V> {
   // Otherwise returns the height of each child + 1
   private int getHeight(AVLTreeNode<K, V> node) {
     return node != null ?
-      1 + getHeight(node.getLeft()) + getHeight(node.getRight())
+      1 + max(getHeight(node.getLeft()), getHeight(node.getRight()))
       : 0;
+  }
+
+  private int max(int a, int b) {
+    return (a > b) ? a : b;
   }
 
   // Inserts an element with a key and value.
@@ -119,7 +123,7 @@ public class AVLTree<K extends Comparable<K>, V> implements Tree<K, V> {
     throw new TreeException();
   }
 
-  // Deletes a the node at the root of the tree given
+  // Deletes a the node at the ROOT of the tree given
 // Returns the resulting tree
   private AVLTreeNode<K, V> deleteNode(AVLTreeNode<K, V> node) throws TreeException {
     if (node.getLeft() == null && node.getRight() == null) {

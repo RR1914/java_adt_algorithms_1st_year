@@ -2,7 +2,7 @@
 // This is a binary search tree, whose nodes have the colour *Red* or *Black*
 //
 // P.1 Every node is either red or black
-// P.2 The root node is black
+// P.2 The ROOT node is black
 // P.3 If a node is red, it's children are all black
 // P.4 Every path from a given node to any of it's descendants contains
 //     the same number of black nodes.
@@ -52,7 +52,7 @@ public class RBTTree<K extends Comparable<K>, V> implements Tree<K, V> {
   }
 
   private void validity(RBTTreeNode<K, V> node) {
-    // CASE 1 : node is root -> change to black
+    // CASE 1 : node is ROOT -> change to black
     if (root == node) node.setColour(Colour.BLACK);
 
     RBTTreeNode<K, V> parent = node.getParent();
