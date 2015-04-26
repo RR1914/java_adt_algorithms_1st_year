@@ -32,21 +32,20 @@ public class HeapTestsuite {
   private static void heapSort(Integer[] data) {
     System.out.println("-----------------------------------");
     try {
-      data = heapSortIteration(data);
+      heapSortIteration(data);
     } catch (HeapException e) {
       System.out.println("Unknown error with heap!");
     }
     System.out.println("-----------------------------------");
   }
 
-  private static Integer[] heapSortIteration(Integer[] data) throws HeapException {
+  private static void heapSortIteration(Integer[] data) throws HeapException {
     MaxHeap<Integer> heap = new MaxHeap<Integer>();
     for (int i : data) {
       heap.insert(new Integer(i));
     }
     Integer[] out = heap.toArray();
     printArray(out);
-    return out;
   }
 
   private static void printArray(Integer[] data) {

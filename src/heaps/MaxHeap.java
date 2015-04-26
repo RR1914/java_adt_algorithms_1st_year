@@ -1,6 +1,18 @@
 package heaps;
 
-import java.util.ArrayList;
+/*
+    HeapSort is an algorithm for sorting arrays using the heap we have
+    implemented below. Rather than checking the heap on every entry as we
+    have below it follows a different methodology.
+
+    1. Have an array of length n with an unknown ordering, but an agreed method
+    2. Set a parameter to array.length, call it index.
+      3. Decrement index (index--)
+      4. heap[0] = heap[index] && heap[index] = heap[0] --SWAP
+      5. heapRebuild(heap, 0, index)
+    6. Repeat 3 -> 5 whilst index > 0
+    7. heap[0] is smallest, heap[heap.length - 1] is largest.
+ */
 
 public class MaxHeap<T extends Comparable<T>> extends AbstractHeap<T> {
 
@@ -14,8 +26,7 @@ public class MaxHeap<T extends Comparable<T>> extends AbstractHeap<T> {
     int index = lastIndex;
     lastIndex++;
     while (heap[ROOT] != elem) {
-      double pos = index + EPSILON;
-      int parent = (int) Math.floor(pos / 2);
+      int parent = (int) Math.floor((index + EPSILON) / 2);
       if (heap[parent].compareTo(heap[index]) < 1) {
         swap(parent, index);
         index = parent;
@@ -23,6 +34,10 @@ public class MaxHeap<T extends Comparable<T>> extends AbstractHeap<T> {
         return;
       }
     }
+  }
+
+  public void heapSort() {
+
   }
 
   private void swap(int index_1, int index_2) {
@@ -69,7 +84,7 @@ public class MaxHeap<T extends Comparable<T>> extends AbstractHeap<T> {
   }
 
   public T[] toArray() {
-    T[] array = (T[]) new Integer[lastIndex];
+    T[] array = (T[]) new Integer[lastIndex]; // Poor use of casting
     System.arraycopy(heap, 0, array, 0, lastIndex);
     return array;
   }
