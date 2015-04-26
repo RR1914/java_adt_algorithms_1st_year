@@ -30,5 +30,4 @@ public class LinkedListNode<K> {
   public void setElem(K elem) {
     this.elem = elem;
   }
-
 }
