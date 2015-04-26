@@ -36,10 +36,6 @@ public class MaxHeap<T extends Comparable<T>> extends AbstractHeap<T> {
     }
   }
 
-  public void heapSort() {
-
-  }
-
   private void swap(int index_1, int index_2) {
     T temp = heap[index_1];
     heap[index_1] = heap[index_2];
