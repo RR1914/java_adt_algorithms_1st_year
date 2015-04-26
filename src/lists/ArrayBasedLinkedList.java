@@ -7,15 +7,11 @@ public class ArrayBasedLinkedList<K> extends AbstractLinkedList<K> {
   public ArrayBasedLinkedList() {
     super();
     elems = (K[]) new Object[MAX_LIST_STATIC];
-    numelems = 0;
   }
 
-  @Override
   public void add(int n, K elem) throws LinkedListException {
     if (numelems < MAX_LIST_STATIC) {
-      for (int i = numelems - 1; i >= n - 1; i--) {
-        elems[i + 1] = elems[i];
-      }
+      System.arraycopy(elems, n - 1, elems, n, numelems - n);
       elems[n - 1] = elem;
       numelems++;
     } else {
@@ -35,12 +31,9 @@ public class ArrayBasedLinkedList<K> extends AbstractLinkedList<K> {
     }
   }
 
-  @Override
   public void delete(int n) {
     if (n <= numelems && elems[n-1] != null) {
-      for (int i = n - 1; i < numelems; i++) {
-        elems[i] = elems[i + 1];
-      }
+      System.arraycopy(elems, n, elems, n - 1, numelems - n);
       numelems--;
     }
   }
@@ -50,17 +43,26 @@ public class ArrayBasedLinkedList<K> extends AbstractLinkedList<K> {
     int element = retrieve(elem);
     if (element != -1) {
       delete(element);
+    } else {
+
     }
   }
 
-  @Override
   public K retrieve(int n) {
+    if (n <= numelems) {
+      return elems[n-1];
+    }
     return null;
   }
 
   @Override
   public int retrieve(K elem) {
-    return 0;
+    int index = 0;
+    while (index < numelems) {
+      if (elems[index].equals(elem)) return index;
+      index++;
+    }
+    return -1;
   }
 
   @Override

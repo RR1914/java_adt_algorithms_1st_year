@@ -15,4 +15,20 @@ public class LinkedListNode<K> {
     this.next = next;
   }
 
+  public LinkedListNode<K> getNext() {
+    return next;
+  }
+
+  public void setNext(LinkedListNode<K> next) {
+    this.next = next;
+  }
+
+  public K getElem() {
+    return elem;
+  }
+
+  public void setElem(K elem) {
+    this.elem = elem;
+  }
+
 }
