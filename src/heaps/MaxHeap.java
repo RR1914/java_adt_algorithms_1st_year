@@ -26,7 +26,7 @@ public class MaxHeap<T extends Comparable<T>> extends AbstractHeap<T> {
     int index = lastIndex;
     lastIndex++;
     while (heap[ROOT] != elem) {
-      int parent = (int) Math.floor((index + EPSILON) / 2);
+      int parent = (int) Math.floor((index) / 2);
       if (heap[parent].compareTo(heap[index]) < 1) {
         swap(parent, index);
         index = parent;
@@ -73,8 +73,8 @@ public class MaxHeap<T extends Comparable<T>> extends AbstractHeap<T> {
   public void heapRebuild(int pos) {
     // Position has at least a left child
     int child = (2 * pos) + 1;
-    if (heap[child] != null) {
-      if (heap[child + 1] != null && heap[child].compareTo
+    if (child < lastIndex) {
+      if (child + 1 < lastIndex && heap[child].compareTo
         (heap[child + 1]) <= 1) child++;
       if (heap[pos].compareTo(heap[child]) < 1) {
         swap(pos, child);
@@ -84,7 +84,8 @@ public class MaxHeap<T extends Comparable<T>> extends AbstractHeap<T> {
   }
 
   public T[] toArray() {
-    T[] array = (T[]) new Integer[lastIndex]; // Poor use of casting
+    T[] array = (T[]) new Integer[lastIndex];
+    // POOR! Integer only for testsuite purposes!
     System.arraycopy(heap, 0, array, 0, lastIndex);
     return array;
   }
