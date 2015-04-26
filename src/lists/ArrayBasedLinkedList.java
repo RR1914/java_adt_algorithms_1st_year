@@ -10,7 +10,7 @@ public class ArrayBasedLinkedList<K> extends AbstractLinkedList<K> {
   }
 
   public void add(int n, K elem) throws LinkedListException {
-    if (numelems < MAX_LIST_STATIC) {
+    if (0 < n && n <= numelems && numelems < MAX_LIST_STATIC) {
       System.arraycopy(elems, n - 1, elems, n, numelems - n);
       elems[n - 1] = elem;
       numelems++;
@@ -32,24 +32,24 @@ public class ArrayBasedLinkedList<K> extends AbstractLinkedList<K> {
   }
 
   public void delete(int n) {
-    if (n <= numelems && elems[n-1] != null) {
+    if (0 < n && n <= numelems && elems[n-1] != null) {
       System.arraycopy(elems, n, elems, n - 1, numelems - n);
       numelems--;
     }
   }
 
   @Override
-  public void delete(K elem) {
+  public void delete(K elem) throws LinkedListException {
     int element = retrieve(elem);
     if (element != -1) {
       delete(element);
     } else {
-
+      throw new LinkedListException("Element already exists!");
     }
   }
 
   public K retrieve(int n) {
-    if (n <= numelems) {
+    if (0 < n && n <= numelems) {
       return elems[n-1];
     }
     return null;
